@@ -1,0 +1,48 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="centerForm">
+    <div><br>
+      <h1 class="textCenter">Create an account</h1><br>
+
+      {% if error %} 
+        <div class="formAlert">
+          {{error}}
+        </div>
+      {% endif %}
+
+
+    <div style="display: flex; flex-direction: row;">
+      <!-- <img src="https://st2.depositphotos.com/5797102/46522/v/600/depositphotos_465223224-stock-illustration-online-grocery-store-concept-woman.jpg" alt=""> -->
+      <!-- <img src="https://img.freepik.com/premium-vector/healthy-food-delivery-service-pandemic_80802-738.jpg"> -->
+      <!-- <img src="https://cdni.iconscout.com/illustration/premium/thumb/a-woman-buys-cloth-in-a-mobile-online-shop-5082632-4254819.png"> -->
+      <!-- <img src="https://cdni.iconscout.com/illustration/premium/thumb/grocery-shopping-cart-2763609-2307104.png"> -->
+      <img src="https://img.freepik.com/premium-vector/order-products-online_118813-1813.jpg?size=626&ext=jpg&ga=GA1.1.1047322870.1676297463&semt=ais" style="margin-top:-3px">
+      
+      <form action="/signup" method="POST" class="boxElement formContainer">
+        {% csrf_token %}
+        <div>
+          <input type="text" placeholder="Name" class="formInput" name="name" value="{{values.name}}" required>
+        </div><br>
+        <div>
+          <input type="email" placeholder="Email" class="formInput" name="email" value="{{values.email}}" required>
+        </div><br>
+        <div>
+          <input type="text" placeholder="Phone no" maxlength="10" minlength="10" class="formInput" name="phone" value="{{values.phone}}" required>
+        </div><br>
+        <div>
+          <input type="password" placeholder="Password" class="formInput" name="password" required>
+        </div>
+
+        <div>
+          <input type="submit" style="margin-top: 30px;" class="greenBtn" name="Sign Up">
+        </div><br>
+        <p>Already have an Account? <a style="color: blue; text-decoration: none;" href="/login"><strong>Log In</strong></a></p>
+      </form>
+    </div>
+    <br>
+    </div>  
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'store/main.html' %}
+{% block content %}
+<style>
+  .aboutSection{
+    margin-bottom: 120px;
+  }
+  .aboutBack{
+    height: 250px;
+    width: 100%;
+    background-color: #8b8b8b;
+  }
+  .aboutMember{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 90px;
+  }
+  .aboutMember h4{
+    margin-top: -15px
+  }
+  .aboutMember img{
+    height: 200px;
+    width: 200px;
+    border-radius: 30px;
+  }
+  .pooja{
+    position: absolute;
+    left: -10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+  }
+  .pooja1{
+    position: absolute;
+    right: -10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .aboutMember .links{
+    display: flex;
+  }
+
+  .links a{
+    color: #000000;
+    margin: -6px 10px;
+  }
+  
+  .shape1{
+    position: absolute;
+    background-color: #40803734;
+    height: 900px;
+    width: 900px;
+    transform: rotate(45deg);
+    z-index: -1;
+    left: 90%;
+    top: -60%;
+  }
+  .shape2{
+    position: absolute;
+    background-color: #40803734;
+    height: 240px;
+    width: 240px;
+    z-index: -1;
+    top: 570px;
+    border-radius: 50%;
+    transform: rotate(-45deg);
+  }
+
+</style>
+<div class="shape1"></div>
+<div class="shape2"></div>
+<br>
+<h1 class="textCenter">About Us</h1><br>
+<a class="darkBtn" style="margin: 30px 0 20px 115px" href="{% url 'store_page' %}">&#x2190; Continue Shopping</a>
+<div class="aboutContainer">
+
+  <p class="aboutSection">Our vegetable selling website offers a wide range of fresh and organic vegetables, grown using sustainable farming practices. We are committed to providing high-quality produce at affordable prices, with fast and reliable shipping. Green Pantry is easy to navigate. We Provide a secure platform for you to get fresh and healthy vegetables grown with love by out local farmers. With our commitment to quality and customer satisfaction, we aim to be your go-to source for fresh, organic vegetables.
+  <br><br>
+  Our secret?
+  <br> Ethylene absorption! Ethylene is a natural gas that vegetables produce as they ripen, and it can cause them to spoil quickly. But with our innovative ethylene absorption method, we remove this gas from our produce storage and delivery processes, resulting in longer-lasting, fresher veggies for you and your family to enjoy.
+  <br><br>
+  Shop now to see the difference for yourself, and take advantage of our vegetables, all at affordable prices. Plus, with our fast and convenient delivery options, you can have fresh produce delivered straight to your doorstep in no time. Thank you for choosing us as your trusted source for healthy, high-quality vegetables.  
+  </p>
+
+  <div class="aboutTeam">
+    <div class="aboutBack">
+      <h1 class="textCenter" style="padding-top: 100px; color: #ffffff">Our Team</h1>
+    </div>
+    <div class="aboutMember">
+      <div class="pooja">
+        <img src="https://media.licdn.com/dms/image/D5603AQGdsF91gk-aFg/profile-displayphoto-shrink_800_800/0/1666881988490?e=1686787200&v=beta&t=H2Qnvga59u85lKChRBujlSWBqJujmWqVNTWAxBHa3kE" alt="">
+        <h3>Pooja Jadhav</h3>
+        <h4>Web Developer</h4>
+        <div class="links">
+          <a href="https://www.linkedin.com/in/poojadhav/" target="_blank"><i class="fa-brands fa-linkedin"></i></a><br>
+          <a href="https://github.com/Poojadhav313" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://replit.com/@Pooja313" target="_blank"><img src="https://storage.googleapis.com/replit/images/1626361889557_7bd2b9303a62b864e9881d1abfdec5e0.png" alt="" style="height: 25px; width: 25px"></a><br>
+        </div>
+      </div>
+
+      <div class="pooja1">
+        <img src="https://media.licdn.com/dms/image/D4D03AQFjBdMjXmZpUw/profile-displayphoto-shrink_200_200/0/1678011751328?e=1686787200&v=beta&t=22NOZoEtqFEjO1GDaZepoSC2ImEsshyRHqbd-pRL1PQ" alt="">
+        <h3>Sakshi Patil</h3>
+        <h4>Web Developer</h4>
+        <div class="links">
+          <a href="https://www.linkedin.com/in/sakshi-patil-036911268/" target="_blank"><i class="fa-brands fa-linkedin"></i></a><br>
+          <a href="https://github.com/Sakshipatil1611" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://replit.com/@Pooja313" target="_blank"><img src="https://storage.googleapis.com/replit/images/1626361889557_7bd2b9303a62b864e9881d1abfdec5e0.png" alt="" style="height: 25px; width: 25px"></a><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

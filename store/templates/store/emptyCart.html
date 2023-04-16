@@ -1,0 +1,12 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<br>
+<!-- <h1 class="textCenter">Your Cart is Empty</h1> -->
+<img style="margin: 0 25%;" src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-5521508-4610092.png" alt="">
+<h2 class="textCenter">Looks like you don't have anything in your cart...</h2><br>
+<a class="darkBtn" href="{% url 'store_page' %}" style="margin: 0 43%;">&#x2190; Start Shopping</a>
+<br>
+
+
+{% endblock %}

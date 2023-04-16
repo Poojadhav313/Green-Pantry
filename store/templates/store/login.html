@@ -1,0 +1,36 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="centerForm">
+    <div><br>
+      <h1 class="textCenter">Log in</h1><br>
+
+      {% if error %}
+        <div class="formAlert">
+          {{error}}
+        </div>
+      {% endif %}
+
+      <div style="display: flex; flex-direction: row;">
+      <img src="https://img.freepik.com/premium-vector/register-access-login-password-internet-online-website-concept-flat-illustration_385073-108.jpg" height="500px">
+      <form action="/login" method="POST" class="boxElement formContainer">
+        {% csrf_token %}
+        <br><br>
+        <div>
+          <input type="email" class="formInput" placeholder="Email" name="email" value="{{ values.email }}" required>
+        </div><br>
+        <div>
+          <input type="password" class="formInput" placeholder="Password" name="password" required>
+        </div><br>
+
+        <div>
+          <input type="submit" style="margin-top: 30px;"class="greenBtn" name="Log In">
+        </div><br>
+        <p>Don't have a Account? <a style="color: blue; text-decoration: none;" href="/signup"><strong> Sign Up</strong></a></p>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

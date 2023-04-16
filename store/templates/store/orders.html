@@ -1,0 +1,40 @@
+{% extends  'store/main.html'%}
+
+{% block content %}
+{% load cart %}
+<br>
+<h1 class="textCenter">Your Orders</h1>
+<div class="row">
+  <div class="col">
+    <a class="darkBtn" href="{% url 'store_page' %}">&#x2190; Continue Shopping</a>
+    <br><br><br>
+    <div class="boxElement" style="width: 82vw;">
+      <div class="cartRow">
+        <div style="flex:2"></div>
+        <div style="flex:2"><strong>Product</strong></div>
+        <div style="flex:1; margin-right: 5px"><strong>Date</strong></div>
+        <div style="flex:1"><strong>Price</strong></div>
+        <div style="flex:1"><strong>Quantity</strong></div>
+        <div style="flex:1"><strong>Total</strong></div>
+        <div style="flex:1"><strong>Status</strong></div>
+      </div>
+      <br>
+      {% for item in items %} 
+      <div class="cartRow">
+        <div style="flex:2"><img class="cartIMG" src="{{ item.product.image.url }}"></div>
+        <div style="flex:2"><p>{{ item.product.name }} ({{ item.product.description }})</p></div>
+        <div style="flex:1; margin-right: 20px"><p>{{ item.date }}</p></div>
+        <div style="flex:1"><p>Rs {{ item.price }}</p></div>
+        <div style="flex:1"><p class="quantity">{{ item.quantity }}</p></div>
+        <div style="flex:1"><p>Rs {{ item.price|mul:item.quantity }}</p></div>
+        {%  if item.status %}
+        <div class="orderComplete" style="flex:1"><p><strong>Delivered</strong></p></div>
+        {% else %}
+        <div class="orderPending" style="flex:1"><p><strong>Pending</strong></p></div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

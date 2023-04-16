@@ -1,0 +1,50 @@
+{% extends  'store/main.html'%}
+
+{% block content %}
+{% load cart %}
+<br>
+<h1 class="textCenter">Your Cart</h1>
+<div class="row">
+  <div class="col" style="width: 84vw;">
+    <a class="darkBtn" href="{% url 'store_page' %}">&#x2190; Continue Shopping</a>
+    <br><br><br>
+    <div class="boxElement">
+      <div class="cartRow" style="padding:15px 0">
+  
+      <div style="flex:2"><!-- IMAGE --></div>
+        <div style="flex:2"><strong>Product</strong></div>
+        <div style="flex:1"><strong>Price</strong></div>
+        <div style="flex:1"><strong>Quantity</strong></div>
+        <div style="flex:1"><strong>Total</strong></div>
+      </div> 
+
+      {% for item in items %} 
+      <div class="cartRow">
+        <div style="flex:2"><img class="cartIMG" src="{{ item|cart_img:request.session.cart }}"></div>
+        <!-- <div style="flex:5">
+          <p><strong>{{ item.name }}</strong> ({{ item.description }})</p>
+          <p style="font-weight: bolder; font-size: 18px">Rs {{ item|item_total:request.session.cart }}</p>
+        </div>
+        <div style="flex:1"><p>+ {{ item|cart_quantity:request.session.cart }} -</p></div> -->
+        <!-- -------------------- -->
+        <div style="flex:2;"><p>{{ item.name }} ({{ item.description }})</p></div>
+        <div style="flex:1"><p>Rs {{ item.price }}</p></div>
+        <div style="flex:1">
+          <p class="quantity">{{ item|cart_quantity:request.session.cart }}</p>
+          <div class="quantity">
+            <div><img class="chg-quantity" src=""></div>
+            <div><img class="chg-quantity" src=""></div>
+          </div>
+        </div>
+        <div style="flex:1"><p>Rs {{ item|item_total:request.session.cart }}</p></div>
+      </div>
+      {% endfor %}
+
+            <h5 class="priceTotal">Total :<strong> Rs {{items|price_total:request.session.cart}}</strong></h5>
+            <a style="float:right; margin-top: 30px;"class="greenBtn" href="{% url 'checkout0_page' %}">Checkout</a>
+            
+            
+    </div>
+  </div>
+</div>
+{% endblock content %}

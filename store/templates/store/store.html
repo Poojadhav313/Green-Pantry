@@ -1,0 +1,24 @@
+{% extends 'store/main.html' %}
+  
+{% block content %}
+{% load cart %}
+  <!-- items -->
+  <div class="row" style="font-size: 23px; width: 85vw">
+    {% for item in products %}
+    <div class="col itemCol" id="{{ item.id }}">
+      <img class="thumbnail" src="{{ item.image.url }}">
+      <div class="boxElement">
+        <h6 class="itemName">{{ item.name }} <br>({{ item.description }})</h6>
+        <!-- <form action="/#{{ item.id }}" method="POST"> -->
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input hidden type="text" value="{{ item.id }}" name="productId">
+          <input style="float:right" type="submit" value="Add to Cart" class="greenBtn">
+        </form>
+        <h5 class="itemPrice"><strong>Rs {{ item.price }}</strong></h5>
+      </div>
+      <br>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

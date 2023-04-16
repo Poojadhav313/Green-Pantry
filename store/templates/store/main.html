@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Pooja Jadhav">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://kit.fontawesome.com/47ccd04704.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
+
+  <title>Green Pantry</title>
+
+<style>
+  
+  body{
+    /* background-color:#c5c5c53b;  */
+    background-color:#fffef2;  
+    overflow-x: hidden;
+    font-family: 'Raleway', sans-serif; 
+    
+    margin: 0;
+    padding: 0;
+  }
+  a{
+    text-decoration: none;
+  }
+
+  .textCenter{
+    text-align: center;
+  }
+
+  .fa-star{
+    color: #fbff00
+  }
+
+  /* --------buttons----------- */
+
+  .greenBtn{
+    border: 1px solid #caf2c2;
+    color: white;
+    padding: 10px 15px;
+    margin-left: 5px;
+    font-size: 18px;
+    background-color: #538671;
+    border-radius: 13px;
+  }
+  .darkBtn{
+    border: 1px solid #538671;
+    color: #538671;
+    padding: 10px 15px;
+    border-radius: 13px;
+    transition: 0.3s;
+  }
+  .darkBtn:hover{
+    background: #538671;
+    color: white;
+  }
+
+
+  
+  /* ----NAVBAR----- */
+
+  .navbar{
+  padding: 10px 25px;
+  /* background-color: #2b2c30; */
+  background-color: #3C6255;
+  color: #EAE7B1;
+}
+.navbar a{
+  margin: 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  /* color: #808080; */
+  color : #edf2d3;
+}
+.navbar a:hover{
+  color: #ffffff;
+}
+  .nav{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+  }
+  .nav, .nav-left, .nav-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #brandName{
+    font-size: 45px;
+    color : #edf2d3;
+    letter-spacing: 0.5px;
+    margin-left: -8px;
+    margin-top: -10px;
+    margin-right: 20px;
+    font-family: 'Lobster Two', cursive;
+  }
+
+  #cartIcon{
+    display: inline-block;
+    margin-left: 15px;
+  }
+
+  /* -------store---------- */
+  .row{
+    margin: 40px 7%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    width: 170vw 
+  }
+  .col{
+    width: 270px;
+    height: 300px; 
+    margin: 5px 15px 30px 15px;
+    
+  }
+  .boxElement{
+    background-color: #fff;
+    /* border-radius: 15px; */
+    padding: 10px;
+    box-shadow:#cccccc 0 0 25px;
+  }
+
+
+  .itemCol{
+    width: 255px;
+    height: 355px;
+    border-radius: 15px;
+    border: 1px solid #6b6b6b38;
+    border: 1px solid #2e2e2e38;
+  }
+  .itemCol:hover{
+    box-shadow:#6b6b6b38 0 0 15px;
+  }
+  .itemCol .boxElement{
+    border-radius: 0 0 15px 15px;
+    box-shadow:#6b6b6b38 0 0 0px;
+  }
+  .itemName{
+    font-size: 20px;
+    margin-left: 5px;
+    margin-bottom: 19px;
+  }
+
+  .thumbnail{
+    width: 255px;
+    height: 170px;
+    margin-bottom: -5px;
+    border-radius: 15px  15px  0 0 
+    
+    }
+    
+    .itemPrice{
+      display: inline-block; 
+      float: left;
+      color: #000000;
+      margin-top: 12px; 
+      margin-left: 5px;
+      font-size: 20px;
+
+    }
+    
+    
+    /* ------cart-------- */
+    .cartIMG{
+    margin-left: 20px;
+    width: 130px;
+    height: 100px;
+  }
+  
+
+  
+  .cartRow{
+    display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+    
+  }
+  .priceTotal{
+    text-align:right; 
+    margin-right:60px; 
+    font-weight: normal; 
+    font-size: 18px
+  }
+
+  /* -----------checkout----------- */
+  .checkoutFlex{
+    display: flex;
+    width: 70vw;
+    justify-content: space-between;
+  }
+  .checkoutIMG{
+    margin-left: 20px;
+    width: 85px;
+    height: 65px;
+  }
+  .shippingInfo{
+    width: 500px;
+    margin-top: 20px;
+  }
+  .orderSummary{
+    width: 500px;
+  }
+  
+  /* ----------orders----------- */
+  .orderComplete{
+    padding: 5px;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(13, 143, 13);
+  }
+  .orderPending {
+    padding: 5px;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(255, 255, 0);
+  }
+
+  /* ------------------forms------------ */
+  .centerForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .formContainer{
+    padding: 50px;
+    font-size: 18px;
+    box-shadow: none;
+  }
+  .formAlert{
+    padding: 10px;
+    margin: 30px 30px 30px 0;
+    width: 95%;
+    font-size: 19px;
+    background: #ff8f8f;
+    border: 1px solid #ff0000;
+    color: #800000;
+  }
+  .formInput{
+    padding: 10px;
+    font-size: 18px;
+    width: 400px;
+    border-radius: 5px;
+    border:rgb(122, 122, 122) 1px solid;
+  }
+  .formInput:focus{
+    border: none;
+  }
+  input[type="submit"]{
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /* -----------about us page------------ */
+  .aboutContainer{
+    margin: 80px 100px;
+    margin-bottom: 200px;
+    font-size: 20px;
+  }
+
+  img{
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  
+  
+</style>  
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav">
+      <div class="nav-left">
+        <a href="{% url 'home_page' %}" id="brandName">Green Pantry</a>
+        
+      </div>
+      
+      <div class="nav-right">
+        <a href="{% url 'store_page' %}">Store</a>
+        <a href="{% url 'aboutus_page' %}">About us</a>
+        {% if request.session.customer %}
+        <a class="nav-link" href="{% url 'orders_page' %}">Orders</a>
+        <a class="nav-link" href="{% url 'logout_page' %}">Log out</a>
+        <a href="{% url 'cart_page' %}">
+          <!-- <img id="cartIcon" src="https://www.freeiconspng.com/thumbs/shopping-cart-icon/red-simple-shopping-cart-icon-12.png" height="30" width="30"> -->
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        {% else %}
+        <a class="nav-link loginbtn" href="{% url 'login_page' %}">Login</a>
+        <a class="nav-link" href="{% url 'signup_page' %}">Signup</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}
+<!-- ------------------------------------------------------------------------- -->
+  {% endblock %}
+
+</body>
+</html>
