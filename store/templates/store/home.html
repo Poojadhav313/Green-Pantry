@@ -20,6 +20,7 @@
     margin: 10px 0px 0 50px;
 
   }
+
   .homeBullets{
     display: flex;
     flex-direction: row;
@@ -205,6 +206,11 @@
 <div class="shape1"></div>
 <div class="shape2"></div>
 <div class="homeContainer">
+  {% if successMsg %}
+    <div class="formSuccess">
+      {{ successMsg }}
+    </div>
+  {% endif %}
 <!-- -----banner--------- -->
   <div class="homeBanner">
     <div class="bannerLeft">
@@ -313,12 +319,12 @@
     <div class="cUs">
       <h3>Contact form</h3>
       <p>Let us know more about you</p><br>
-      <form action="https://formsubmit.co/greenpantry123@gmail.com" method="POST">
+      <!-- <form action="https://formsubmit.co/greenpantry123@gmail.com" method="POST"> -->
+      <form action="" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="_subject" value="New submision!">
-        <input type="hidden" name="_captcha" value="false">
-        <!-- <input type="hidden" name="_next" value="https://www.linkedin.com/in/poojadhav/"> -->
-        <input type="hidden" name="_template" value="table">
+        <!-- <input type="hidden" name="_subject" value="New submision!"> -->
+        <!-- <input type="hidden" name="_captcha" value="false"> -->
+        <!-- <input type="hidden" name="_template" value="table"> -->
         <input type="text" class = "formTxt" name="name" placeholder = "Enter Name" required>
         <input type="email" class = "formTxt" name="email" placeholder = "Enter Email" required>
         <textarea class = "formTxt" name="msg" maxlength = "100" style = "resize:none;" placeholder = "Enter Message" required></textarea>

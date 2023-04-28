@@ -1,9 +1,101 @@
 {% extends  'store/main.html'%}
 
 {% block content %}
-<div class="col">
-  <form action="" method="POST">
-    <input type="number" name="cardNo" placeholder="Card number" maxlength="16" required>
-  </form>
+<style>
+body{
+  overflow: hidden;
+}
+.popupPayment{
+  width: 100vw;
+  margin: 120px -30px 0 60px;
+}
+.popupContainer {
+  position: relative;
+  color : #000000;
+}
+.popupPayment a{
+  color: #ffffff;
+  padding: 15px;
+  background-color: #3C6255;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+.popupPayment i{
+  font-size: 20px;
+  margin-right: 10px;
+}
+.popupPayment .popupClose{
+  padding: 10px;
+  background-color: transparent;
+  color : #000000;
+}
+.popupPayment .formInput {
+  margin-bottom: 20px;
+}
+.paymentFlex{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.popup{
+  top: 30%;
+  left: 35%;
+  background: #fffef2;
+  width: 500px;
+  height: auto
+}
+.paymentYear{
+  width: 180px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+.confirmBtn{
+  margin: 10px 0;
+  align-items: center;
+}
+
+.b2{
+  margin-left: 70px;
+  margin-top: 90px;
+}
+</style>
+<br>
+<h1 class="textCenter">Payment Details</h1>
+<a class="darkBtn b2" href="{% url 'checkout_page' %}">&#x2190; Back</a>
+<div class="paymentFlex">
+  <div class="col popupPayment">
+    <h2>Thankyou for choosing our services</h2>
+    <h2>Choose a Payment Mode</h2><br><br>
+    <a href="#popupPayment"><i class="fa-solid fa-credit-card"></i>Debit card</a>
+  
+    <a href=""><i class="fa-solid fa-wallet"></i>Cash on delivery</a>
+    
+    
+      <div class="popupContainer">
+        <div class="popupOverlay" id="popupPayment">
+          <div class="popup">
+            <div class="popHead">
+              <h2>Debit Card details</h2>
+              <a href="#" class="popupClose"><i class="fa-solid fa-x"></i></a>
+            </div><br>
+            <form action="/payment" method="POST">
+              {% csrf_token %}
+              <input type="number" class="formInput" name="cardNo" placeholder="Card number" min="0000000000000001" max="9999999999999999" required><br>
+              <input type="number" class="formInput" name="cardCvv" placeholder="CVV" max="999" required>
+              <h3>Expiration date</h3>
+              <input type="number" class="formInput paymentYear" name = "cardYear" min="2018" max="2099" step="1" placeholder="Year"/> <!-- max 3-5 years -->
+              <input type="number" class="formInput paymentYear" name="cardMonth" min="01" max="31" step="1" placeholder="Month"/>
+              <!-- <input type="month"/> -->
+              <input type="submit" style="margin-top: 30px;" class="greenBtn" name="Confirm">
+          
+            </form>
+            
+        </div>
+        </div>
+      </div>
+    
+    </div>
+    <img src="https://img.freepik.com/free-vector/flat-receiving-cashback-bonus-from-paying-online_88138-766.jpg?w=826&t=st=1682498450~exp=1682499050~hmac=e8854ae24fd7b9a619503499a071fd9843fed04f96c4df663c9707ca5d1e8748" alt="">
 </div>
 {% endblock %}

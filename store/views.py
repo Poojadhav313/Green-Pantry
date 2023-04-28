@@ -4,6 +4,7 @@ from django.views import View
 from .models import *
 
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.mail import send_mail
 
 # Create your views here.
 def home(request):
@@ -17,6 +18,9 @@ def home(request):
     print(msg)
     review = Review(Cname = name, Cemail = email, Cmsg = msg)
     review.save()
+
+    #uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuugh
+    #send_mail("trying", "hello hello!", "from@gmail.com", ["greenpantry123@gmail.com"], fail_silently=False)
 
   return render(request, 'store/home.html')
 
@@ -34,15 +38,22 @@ def store(request):
     return render(request, 'store/store.html', content)
 
   if(request.method == 'POST'):
-    item = request.POST.get('productId') #getting id after clicking add_to_cart
+    item = request.POST.get('productId') #getting id after clicking add_to_cart && to + item quantity
+    remove = request.POST.get('removeProduct') #to - item quantity
     cart = request.session.get('cart')
     if cart:
       quantity = cart.get(item)
       if quantity:
-        cart[item] = quantity + 1
+        if remove:
+          if quantity == 1:
+            cart.pop(item)
+          else:
+            cart[item] = quantity - 1
+        else:
+          cart[item] = quantity + 1
       else: 
         cart[item] = 1
-    else:
+    else: 
       cart = {}
       cart[item] = 1
 
@@ -100,7 +111,9 @@ def signup(request):
     else:
       customer.password = make_password(customer.password)
       customer.register()
-      return redirect('login_page') #in urls
+      content = {'successMsg' : "account created successfully!"}
+      return render(request, 'store/login.html', content)
+      # return redirect('login_page') #in urls
 
  
 def login(request):
@@ -112,10 +125,15 @@ def login(request):
     
     error_msg = None
     customer = Customer.getCustomerByEmail(email)
+    #print(customer.name)
+    
     
     if customer:
       if check_password(password, customer.password):
         request.session['customer'] = customer.id
+        request.session['customerName'] = customer.name #crated session to print email on logout pop up
+        request.session['customerEmail'] = customer.email #crated session to print email on logout pop up
+        request.session['customerPhone'] = customer.phone #crated session to print email on logout pop up
         
         return redirect('store_page')  
       else:
@@ -133,7 +151,7 @@ def login(request):
  
 # def logout0(request):
 #   if request.method == 'GET':
-#     print("ooooooo")
+#     print("......")
 #     return request(render, 'store/logout.html')
 #   else:
 #     return redirect('logout_page')
@@ -141,7 +159,8 @@ def login(request):
 
 def logout(request):
   request.session.clear()
-  return redirect('login_page')
+  content = {'successMsg' : "logged out!"}
+  return render(request, 'store/login.html', content)
 
 
 def thanku(request):
@@ -170,7 +189,7 @@ def cart(request):
 
 
 def checkout0(request):
-    #print('yolo')
+    #print('workingg')
     return redirect('checkout_page')
 
 
@@ -180,6 +199,8 @@ def checkout(request):
     cart = request.session.get('cart')
     items = Product.getItemsById(list(cart.keys()))
     context = {'items': items}
+    return render(request, 'store/checkout.html', context)
+
   else:
     customer = request.session.get('customer')
     cart = request.session.get('cart')
@@ -191,30 +212,73 @@ def checkout(request):
     Cpin = request.POST.get('pin')
 
     print(Caddress)
-  # print(cart)
-  # print(items)
-  # print(customer)
+    print(cart)
 
-    for item in items:
-      order = Order(customer = Customer(id = customer), product = item, quantity = cart.get(str(item.id)), price = item.price, address = Caddress, city = Ccity, state = Cstate)
-      order.save()
-    # print(item, cart.get(str(item.id)),item.price, Caddress,Ccity,Cstate)
+        #request.session['customer'] = customer.id
 
-    request.session['cart'] = {}
-  return render(request, 'store/checkout.html', context)
+    request.session['orderAddress'] = Caddress 
+    request.session['orderCity'] = Ccity 
+    request.session['orderState'] = Cstate 
+
+    #print(request.session.get('orderAddress'))
+
+    return render(request, 'store/payment.html')
+
+
+#-----------------------------------
+    #for item in items:
+      #order = Order(customer = Customer(id = customer), product = item, quantity = cart.get(str(item.id)), price = item.price, address = Caddress, city = Ccity, state = Cstate)
+      #order.save()
+    ## print(item, cart.get(str(item.id)),item.price, Caddress,Ccity,Cstate)
+
+    #request.session['cart'] = {}
+  #return render(request, 'store/checkout.html', context)
+#-----------------------------------
 
 
 def orders(request):
   if request.method == 'GET':
     customer = request.session.get('customer')
     orderlist = Order.getOrders(customer)
-    
+    if len(orderlist) == 0:
+      request.session['newUserDis'] = 1
     context = {'items' : orderlist}
   return render(request, 'store/orders.html', context)
 
 
 def payment(request):
-  return render(request, 'store/payment.html')
+  if request.method == 'GET':
+    return render(request, 'store/payment.html')
+  else:
+    Cno = request.POST.get('cardNo')
+    Ccvv = request.POST.get('cardCvv')
+    Cyear = int(request.POST.get('cardYear'))
+    Cmonth = int(request.POST.get('cardMonth'))
+    #print(Cno)
+
+    customer = request.session.get('customer')
+    payment = Payment(customer = Customer(id = customer), CardNo = Cno, CardCvv = Ccvv, CardYear = Cyear, CardMonth = Cmonth)
+    payment.save()
+    print("payment done")
+    content = {'successMsg' : "order placed succesfully!"}
+
+
+    #save shipping details
+
+    cart = request.session.get('cart')
+    items = Product.getItemsById(list(cart.keys()))
+    orderAddress = request.session.get('orderAddress')
+    orderCity = request.session.get('orderCity')
+    orderState = request.session.get('orderState')
+    #print(orderAddress, orderCity, orderState)
+    for item in items:
+      order = Order(customer = Customer(id = customer), product = item, quantity = cart.get(str(item.id)), price = item.price, address = orderAddress, city = orderCity, state = orderState)
+      order.save()
+      #print(item, cart.get(str(item.id)),item.price, orderAddress, orderCity, orderState)
+
+    request.session['cart'] = {}
+    return render(request, 'store/home.html', content)
+
 
 
 def aboutus(request):

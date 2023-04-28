@@ -1,0 +1,73 @@
+<html>
+
+<head>
+
+
+<style>
+
+.popupContainer {
+  position: relative;
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.popupOverlay:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.popupClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 34px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+/* Hide the link when the popup is open */
+.popupOverlay:target ~ #popupLink {
+  display: none;
+}
+
+
+</style>
+</head>
+<body>
+  <a href="#popup" id="popupLink">Open popup</a>
+
+  <div class="popupContainer">
+    <div class="popupOverlay" id="popup">
+      <div class="popup">
+        <a href="#" class="popupClose">X</a>
+        <h2>popup Title</h2>
+        <p>popup content goes here</p>
+      </div>
+    </div>
+  </div>
+  
+  
+</body>
+</html>

@@ -11,6 +11,11 @@
           {{error}}
         </div>
       {% endif %}
+      {% if successMsg %}
+        <div class="formSuccess">
+          {{ successMsg }}
+        </div>
+      {% endif %}
 
       <div style="display: flex; flex-direction: row;">
       <img src="https://img.freepik.com/premium-vector/register-access-login-password-internet-online-website-concept-flat-illustration_385073-108.jpg" height="500px">
@@ -18,7 +23,7 @@
         {% csrf_token %}
         <br><br>
         <div>
-          <input type="email" class="formInput" placeholder="Email" name="email" value="{{ values.email }}" required>
+          <input type="email" class="formInput" placeholder="Email" name="email" value="{{ value_email }}" required>
         </div><br>
         <div>
           <input type="password" class="formInput" placeholder="Password" name="password" required>

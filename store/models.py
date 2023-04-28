@@ -61,7 +61,17 @@ class Order(models.Model):
     return Order.objects.filter(customer = cId).order_by('-date')
 
 
+class Payment(models.Model):
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+  CardNo = models.IntegerField(max_length=16, null=True, blank=True)
+  CardCvv = models.IntegerField(max_length=3, null=True)
+  CardYear = models.IntegerField(max_length=4, null=True)
+  CardMonth = models.IntegerField(max_length=2, null=True)
+
+
 class Review(models.Model):
   Cname = models.CharField(max_length=50, null=True, blank=True)
   Cemail = models.EmailField()
   Cmsg = models.CharField(max_length=500, null=True, blank=True)
+
+

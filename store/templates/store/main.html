@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Pooja Jadhav">
 
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://kit.fontawesome.com/47ccd04704.js" crossorigin="anonymous"></script>
@@ -30,6 +31,10 @@
   }
   a{
     text-decoration: none;
+  }
+  img{
+    user-select: none;
+    /* -webkit-user-drag: none;  */ 
   }
 
   .textCenter{
@@ -124,16 +129,22 @@
     
   }
   .boxElement{
-    background-color: #fff;
-    /* border-radius: 15px; */
+    /* background-color: #fff; */
+    border-radius: 15px; 
+    background-color: #fffef2;
     padding: 10px;
     box-shadow:#cccccc 0 0 25px;
+  }
+
+  .itemName{
+    margin-top: 15px
   }
 
 
   .itemCol{
     width: 255px;
-    height: 355px;
+    /* height: 355px; */
+    height: 330px; 
     border-radius: 15px;
     border: 1px solid #6b6b6b38;
     border: 1px solid #2e2e2e38;
@@ -219,14 +230,14 @@
     height: 40px;
     border-radius: 10px;
     text-align: center;
-    background-color: rgb(13, 143, 13);
+    background-color: rgb(4, 121, 4);
   }
   .orderPending {
     padding: 5px;
     height: 40px;
     border-radius: 10px;
     text-align: center;
-    background-color: rgb(255, 255, 0);
+    background-color: rgb(235, 158, 17);
   }
 
   /* ------------------forms------------ */
@@ -248,6 +259,19 @@
     background: #ff8f8f;
     border: 1px solid #ff0000;
     color: #800000;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .formSuccess{
+    padding: 10px;
+    margin: 5px 30px 30px 30px;
+    width: 95%;
+    font-size: 19px;
+    background: #8fff95;
+    border: 1px solid #2bff00;
+    color: #0f8000;
+    text-align: center;
+    text-transform: uppercase;
   }
   .formInput{
     padding: 10px;
@@ -270,13 +294,83 @@
     margin-bottom: 200px;
     font-size: 20px;
   }
+  
 
-  img{
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-  
-  
+
+  /* -------------------account info popup------------------ */
+  .popupContainer {
+  position: relative;
+  color : #edf2d3;
+}
+
+.popupContainer .logoutBtn{
+  margin: 10px 90px;
+  padding: 10px 15px;
+  border-radius: 15px;
+  transition: 0.3s;
+  border: 1px solid #7a7a7a
+}
+.popupContainer .logoutBtn:hover{
+  background-color: #2a443b
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.705);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.popupOverlay:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup, .popup2 {
+  position: absolute;
+  top: 10%;
+  left: 75%;
+  /* transform: translate(-50%, -50%); */
+  background: #3C6255;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.popupClose {
+  position: absolute;
+  top: 10px;
+  right: 10px; 
+  cursor: pointer;
+}
+.popHead {
+  display: flex;
+  margin-top: -30px;
+}
+
+.popFlex{
+  display:flex;
+  align-items: center;
+}
+
+.popFlex i{
+  margin-right: 15px;
+  font-size: 25px;
+}
+
+.popFlex p{
+  font-size: 20px;
+}
+/* Hide the link when the popup is open */
+.popupOverlay:target ~ #popupLink {
+  display: none;
+}
+
 </style>  
 </head>
 
@@ -291,17 +385,48 @@
       <div class="nav-right">
         <a href="{% url 'store_page' %}">Store</a>
         <a href="{% url 'aboutus_page' %}">About us</a>
-        {% if request.session.customer %}
-        <a class="nav-link" href="{% url 'orders_page' %}">Orders</a>
-        <a class="nav-link" href="{% url 'logout_page' %}">Log out</a>
-        <a href="{% url 'cart_page' %}">
-          <!-- <img id="cartIcon" src="https://www.freeiconspng.com/thumbs/shopping-cart-icon/red-simple-shopping-cart-icon-12.png" height="30" width="30"> -->
-          <i class="fa-solid fa-cart-shopping"></i>
+        <a href="{% url 'cart_page' %}">Cart
+          <!-- <i class="fa-solid fa-cart-shopping"></i> -->
         </a>
-        {% else %}
-        <a class="nav-link loginbtn" href="{% url 'login_page' %}">Login</a>
-        <a class="nav-link" href="{% url 'signup_page' %}">Signup</a>
-        {% endif %}
+
+      {% if request.session.customer %}
+        
+    <!-- account info pop up start -->
+        <a href="#popup" class="nav-link" id="popupLink"><i class="fa-solid fa-user"></i></a>
+        
+        <div class="popupContainer">
+          <div class="popupOverlay" id="popup">
+            <div class="popup">
+              <div class="popHead">
+                <h2>Account</h2>
+                <a href="#" class="popupClose"><i class="fa-solid fa-x"></i></a>
+              </div>
+              <div class="popFlex">
+                <i class="fa-solid fa-user"></i>
+                <p>{{ request.session.customerName }}</p>
+              </div>
+              <!-- <div class="popFlex">
+                <i class="fa-solid fa-envelope"></i>
+                <p>{{ request.session.customerEmail }}</p>
+              </div> -->
+              <div class="popFlex">
+                <i class="fa-solid fa-phone"></i>
+                <p>{{ request.session.customerPhone }}</p>
+              </div><br>
+              <div class="popFlex">
+                <a class="nav-link greenBtn" href="{% url 'orders_page' %}">Order history</a>
+              </div><br><br>
+              <a class="nav-link logoutBtn" href="{% url 'logout_page' %}">Log out</a>
+              </div><br>
+          </div>
+        </div>
+    <!-- account info pop up end -->
+    
+    {% else %}
+      <a class="nav-link loginbtn" href="{% url 'login_page' %}">Login</a>
+      <a class="nav-link" href="{% url 'signup_page' %}">Signup</a>
+    {% endif %}
+
       </div>
     </div>
   </nav>

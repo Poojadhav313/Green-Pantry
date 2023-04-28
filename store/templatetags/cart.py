@@ -1,22 +1,27 @@
 from django import template
 
-register = template.Library()
+register = template.Library() #as it is
 
 @register.filter(name = 'is_in_cart')
 def is_in_cart(item, cart):
   keys = cart.keys()
   for id in keys:
-    if int(id) == item.id:
-      return True
-
+    try:
+      if int(id) == item.id:
+        return True
+    except:
+      pass
   return False
 
 @register.filter(name = 'cart_quantity')
 def cart_quantity(item, cart):
   keys = cart.keys()
   for id in keys:
-    if int(id) == item.id:
-      return cart.get(id)
+    try:
+      if int(id) == item.id:
+        return cart.get(id)
+    except:
+      pass
   return 0
 
 @register.filter(name = 'item_total')
@@ -37,3 +42,10 @@ def cart_img(item, cart):
 @register.filter(name = 'mul')
 def mul(m1,m2):
   return m1*m2
+
+@register.filter(name = 'dis5')
+def dis5(items, cart):
+  total = 0
+  for price in items:
+    total += item_total(price, cart)
+  return total*0.05

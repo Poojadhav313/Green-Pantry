@@ -2,6 +2,24 @@
 
 {% block content %}
 {% load cart %}
+
+<style>
+   #formAlert{
+
+    display: none;
+  } 
+  #formAlert:target ~ .yolo {
+    padding: 10px;
+    margin: 30px 30px 30px 0;
+    width: 95%;
+    font-size: 19px;
+    background: #ff8f8f;
+    border: 1px solid #ff0000;
+    color: #800000;
+  display: block;
+}
+</style>
+
 <br>
 <h1 class="textCenter">Your Cart</h1>
 <div class="row">
@@ -40,10 +58,25 @@
       </div>
       {% endfor %}
 
-            <h5 class="priceTotal">Total :<strong> Rs {{items|price_total:request.session.cart}}</strong></h5>
-            <a style="float:right; margin-top: 30px;"class="greenBtn" href="{% url 'checkout0_page' %}">Checkout</a>
-            
-            
+      <h5 class="priceTotal">Total :<strong> Rs {{items|price_total:request.session.cart}}</strong></h5>
+      {% if request.session.newUserDis %}
+      <h5 class="priceTotal">Discount :<strong> 5%</strong></h5>
+      <h5 class="priceTotal">Total :<strong> Rs {{items|dis5:request.session.cart}}</strong></h5>
+      
+      {% endif %}
+
+
+      {% if request.session.customer %}
+        <a style="float:right; margin-top: 30px;" class="greenBtn" href="{% url 'checkout0_page' %}">Checkout</a>
+      {% else %}
+        <a style="float:right; margin-top: 30px;" class="greenBtn yolo" href="#formAlert">Checkout</a>
+        <div id="formAlert">
+        <p>not logged in</p>
+      </div>
+      {% endif %}   
+      
+      
+      
     </div>
   </div>
 </div>
