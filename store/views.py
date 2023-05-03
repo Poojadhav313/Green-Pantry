@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from .models import *
+from .templatetags.cart import dis20
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import send_mail
@@ -21,8 +22,8 @@ def home(request):
 
     #uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuugh
     #send_mail("trying", "hello hello!", "from@gmail.com", ["greenpantry123@gmail.com"], fail_silently=False)
-
-  return render(request, 'store/home.html')
+    content = {'successMsg' : "Message sent successfully!"}
+    return render(request, 'store/home.html', content)
 
 
 def store(request):
@@ -112,8 +113,10 @@ def signup(request):
       customer.password = make_password(customer.password)
       customer.register()
       content = {'successMsg' : "account created successfully!"}
+      print("account created successfully!")
+
+
       return render(request, 'store/login.html', content)
-      # return redirect('login_page') #in urls
 
  
 def login(request):
@@ -178,6 +181,16 @@ def cart(request):
         ids = list(request.session.get('cart').keys())
         items = Product.getItemsById(ids)
         content = {'items' : items}
+
+        #initializing newUserDis session
+        customer = request.session.get('customer')
+        orderlist = Order.getOrders(customer)
+        print(orderlist)
+        if len(orderlist) == 0:
+          print("initializing newUserDis value")
+          request.session['newUserDis'] = [0]
+        print(request.session.get('newUserDis'))
+
         return render(request, 'store/cart.html', content)
       else:
         cart = {}
@@ -214,13 +227,13 @@ def checkout(request):
     print(Caddress)
     print(cart)
 
-        #request.session['customer'] = customer.id
+    #request.session['customer'] = customer.id
 
-    request.session['orderAddress'] = Caddress 
+    request.session['orderAddress'] = Caddress #assign value to session
     request.session['orderCity'] = Ccity 
     request.session['orderState'] = Cstate 
 
-    #print(request.session.get('orderAddress'))
+    #print(request.session.get('orderAddress'))  #fetch session value
 
     return render(request, 'store/payment.html')
 
@@ -240,8 +253,6 @@ def orders(request):
   if request.method == 'GET':
     customer = request.session.get('customer')
     orderlist = Order.getOrders(customer)
-    if len(orderlist) == 0:
-      request.session['newUserDis'] = 1
     context = {'items' : orderlist}
   return render(request, 'store/orders.html', context)
 
@@ -252,10 +263,11 @@ def payment(request):
   else:
     Cno = request.POST.get('cardNo')
     Ccvv = request.POST.get('cardCvv')
-    Cyear = int(request.POST.get('cardYear'))
-    Cmonth = int(request.POST.get('cardMonth'))
+    Cyear = request.POST.get('cardYear')
+    Cmonth = request.POST.get('cardMonth')
     #print(Cno)
 
+    #sav payment details
     customer = request.session.get('customer')
     payment = Payment(customer = Customer(id = customer), CardNo = Cno, CardCvv = Ccvv, CardYear = Cyear, CardMonth = Cmonth)
     payment.save()
@@ -264,22 +276,36 @@ def payment(request):
 
 
     #save shipping details
-
     cart = request.session.get('cart')
     items = Product.getItemsById(list(cart.keys()))
     orderAddress = request.session.get('orderAddress')
     orderCity = request.session.get('orderCity')
     orderState = request.session.get('orderState')
+
+    # temp = request.session.get('newUserDis')
+    # if temp:
+    #   orderTotal = request.session.get('newUserDis')
+    # else:
+    #   pass
+    #   orderTotal = request.session.get('orderTotal')
     #print(orderAddress, orderCity, orderState)
     for item in items:
+
       order = Order(customer = Customer(id = customer), product = item, quantity = cart.get(str(item.id)), price = item.price, address = orderAddress, city = orderCity, state = orderState)
       order.save()
       #print(item, cart.get(str(item.id)),item.price, orderAddress, orderCity, orderState)
 
     request.session['cart'] = {}
-    return render(request, 'store/home.html', content)
 
+    return render(request, 'store/home.html', content)
 
 
 def aboutus(request):
   return render(request, 'store/aboutus.html')
+
+
+def faq(request):
+  if request.method == 'GET':
+    quelist = Faq.getfaq()
+    context = {'ques' : quelist}
+    return render(request, 'store/faq.html', context)

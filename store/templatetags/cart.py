@@ -43,9 +43,9 @@ def cart_img(item, cart):
 def mul(m1,m2):
   return m1*m2
 
-@register.filter(name = 'dis5')
-def dis5(items, cart):
+@register.filter(name = 'dis20')
+def dis20(item, cart):
   total = 0
-  for price in items:
+  for price in item:
     total += item_total(price, cart)
-  return total*0.05
+  return total - total*0.20

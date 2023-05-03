@@ -47,6 +47,7 @@
     border-radius: 50%;
     margin-bottom:10px;
     position: relative;
+    border: 1px solid rgb(193, 255, 151)
   }
 
 
@@ -220,9 +221,8 @@
       <p>Our vegetables are so fresh, they practically jump off the page and onto your plate. From leafy greens to juicy tomatoes, your taste buds dance with joy. Promise &#128513</p><br>
       <a href="{% url 'store_page' %}"><button class="darkBtn">Start Shopping</button></a>
     </div>
-    <!-- <img src="https://img.freepik.com/free-vector/vegetables-concept-illustration_114360-12366.jpg?size=626&ext=jpg&ga=GA1.1.1047322870.1676297463&semt=ais"> -->
-    <!-- <img src="https://img.freepik.com/premium-vector/wicker-basket-with-vegetables-isolated-white-background-vector-illustration_338371-901.jpg?size=626&ext=jpg&ga=GA1.1.1536630590.1680854130&semt=ais" alt=""> -->
-    <img src="https://img.freepik.com/free-vector/flat-world-vegetarian-day-background_23-2149639655.jpg?w=826&t=st=1680938957~exp=1680939557~hmac=68e8a4d8aa270f3ba7ebeca688749839546f9c5acdd6bffa072df2c66086cf64" alt="">
+    <!-- <img src="https://img.freepik.com/free-vector/flat-world-vegetarian-day-background_23-2149639655.jpg?w=826&t=st=1680938957~exp=1680939557~hmac=68e8a4d8aa270f3ba7ebeca688749839546f9c5acdd6bffa072df2c66086cf64" alt=""> -->
+    <img src="https://img.freepik.com/free-vector/vegetables-concept-illustration_114360-12366.jpg?size=626&ext=jpg&ga=GA1.1.1047322870.1676297463&semt=ais">
   </div>
 
 <!-- --------bullets--------- -->
@@ -243,12 +243,11 @@
       <h3 class="textCenter">Locally grown</h3>
     </div>
   </div>
-
 <!-- ---------about section------- -->
   <div class="aboutBanner">
     <div class="aboutLeft">
-      <h3>About us</h3>
-      <h1>College project</h1>
+      <h1>About us</h1><br>
+      <!-- <h1>College project</h1> -->
       <p>Our vegetable selling website offers a wide range of fresh and organic vegetables, grown using sustainable farming practices. We are committed to providing high-quality produce at affordable prices, with fast and reliable shipping. Green Pantry is easy to navigate. We Provide a secure platform for you to get fresh and healthy vegetables grown with love by out local farmers. With our commitment to quality and customer satisfaction, we aim to be your go-to source for fresh, organic vegetables.</p><br>
       <a href="{% url 'aboutus_page' %}"><button class="darkBtn">Read More</button></a>
     </div>
@@ -261,7 +260,7 @@
   <h1 class="textCenter"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> Customer Reviews <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></h1>
   <div class="reviews">
     <div class="review">
-      <p>I recently discovered this website, and I'm so glad I did. The ordering process is simple, and the vegetables always arrive in great condition. I'll definitely be a repeat customer!</p>
+      <p>The first-time purchase discount was a great way to save money while trying out this website for fresh vegetables. I was very happy with my order.</p>
       <div class="info">
         <img src="https://cdn-icons-png.flaticon.com/512/666/666201.png" alt="">
         <div>
@@ -281,7 +280,7 @@
       </div>
     </div>
     <div class="review">
-      <p>Overall, I had a great experience shopping on this website and would highly recommend it to others looking for high-quality vegetables.</p>
+      <p>I had a great experience shopping on this website and would highly recommend it to others looking for high-quality vegetables. I will definitely be a returning customer!</p>
       <!-- <p>It's clear that this website values its customers. I received a personal thank-you note with my order, which was a nice touch.</p> -->
       <div class="info">
         <img src="https://cdn-icons-png.flaticon.com/512/666/666201.png" alt="">
@@ -304,9 +303,10 @@
   </div><br>
   <div class="footerBottom">
     <div class="tabLinks">
-      <a href="Home">Home</a>
-      <a href="About us">About us</a>
-      <a href="Shop">Shop</a>
+      <a href="{% url 'home_page' %}">Home</a>
+      <a href="{% url 'aboutus_page' %}">About us</a>
+      <a href="{% url 'faq_page' %}">FaQ</a>
+      <a href="{% url 'store_page' %}">Shop</a>
     </div>
     
     <div class="cInfo">
@@ -317,7 +317,7 @@
     </div>
 
     <div class="cUs">
-      <h3>Contact form</h3>
+      <h3>Contact Us</h3>
       <p>Let us know more about you</p><br>
       <!-- <form action="https://formsubmit.co/greenpantry123@gmail.com" method="POST"> -->
       <form action="" method="POST">

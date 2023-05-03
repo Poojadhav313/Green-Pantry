@@ -69,7 +69,11 @@ body{
     <h2>Choose a Payment Mode</h2><br><br>
     <a href="#popupPayment"><i class="fa-solid fa-credit-card"></i>Debit card</a>
   
-    <a href=""><i class="fa-solid fa-wallet"></i>Cash on delivery</a>
+    <form action="/payment" method="POST">
+      {% csrf_token %}
+      <input type="submit" class="greenBtn" style="margin-top: 30px; padding-left: 40px; margin-left: -3px;" name="Confirm" value="Cash on Delivery"><i class="fa-solid fa-wallet" style=" position: absolute; margin-top: 40px; margin-left: -180px; color:#ffffff"></i>
+    </form>
+
     
     
       <div class="popupContainer">
@@ -81,14 +85,17 @@ body{
             </div><br>
             <form action="/payment" method="POST">
               {% csrf_token %}
-              <input type="number" class="formInput" name="cardNo" placeholder="Card number" min="0000000000000001" max="9999999999999999" required><br>
-              <input type="number" class="formInput" name="cardCvv" placeholder="CVV" max="999" required>
-              <h3>Expiration date</h3>
-              <input type="number" class="formInput paymentYear" name = "cardYear" min="2018" max="2099" step="1" placeholder="Year"/> <!-- max 3-5 years -->
-              <input type="number" class="formInput paymentYear" name="cardMonth" min="01" max="31" step="1" placeholder="Month"/>
-              <!-- <input type="month"/> -->
-              <input type="submit" style="margin-top: 30px;" class="greenBtn" name="Confirm">
-          
+              <!--USING NUMBER <input type="number" class="formInput" name="cardNo" placeholder="Card number" min="0000000000000001" max="9999999999999999" required><br> -->
+              <input type="text" class="formInput" name="cardNo" placeholder="Card number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required><br>
+              <input type="text" class="formInput" name="cardCvv" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+              <h3>Expiration date</h3> 
+              <!-- 6years 2017-2029 -->
+              <input type="number" class="formInput paymentYear" name="cardYear" placeholder="Year" min="2017" max="2029" required>
+              <input type="number" class="formInput paymentYear" name="cardMonth" placeholder="Month" min="1" max="12" required>
+              <!-- <input type="text" class="formInput paymentYear" name = "cardYear" maxlength="4" step="1" placeholder="Year" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required> max 3-5 years -->
+              <!-- <input type="text" class="formInput paymentYear" name="cardMonth" maxlength="2" step="1" placeholder="Month" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required> -->
+              
+              <input type="submit" style="margin-top: 30px;" class="greenBtn" name="Confirm" value="Confirm">
             </form>
             
         </div>

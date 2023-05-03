@@ -22,7 +22,8 @@
   
   body{
     /* background-color:#c5c5c53b;  */
-    background-color:#fffef2;  
+    /* background-color:#fffef2;   */
+    background-color:#ffffff;  
     overflow-x: hidden;
     font-family: 'Raleway', sans-serif; 
     
@@ -77,6 +78,9 @@
   /* background-color: #2b2c30; */
   background-color: #3C6255;
   color: #EAE7B1;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 .navbar a{
   margin: 0 10px;
@@ -385,20 +389,20 @@
       <div class="nav-right">
         <a href="{% url 'store_page' %}">Store</a>
         <a href="{% url 'aboutus_page' %}">About us</a>
+        <a href="{% url 'faq_page' %}">FAQ</a>
         <a href="{% url 'cart_page' %}">Cart
           <!-- <i class="fa-solid fa-cart-shopping"></i> -->
         </a>
 
       {% if request.session.customer %}
-        
-    <!-- account info pop up start -->
-        <a href="#popup" class="nav-link" id="popupLink"><i class="fa-solid fa-user"></i></a>
+      <!-- account info pop up start -->
+      <a href="#popup" class="nav-link" id="popupLink"><i class="fa-solid fa-user"></i></a>
         
         <div class="popupContainer">
           <div class="popupOverlay" id="popup">
             <div class="popup">
               <div class="popHead">
-                <h2>Account</h2>
+                <h2 style="margin-top:20px">Account</h2>
                 <a href="#" class="popupClose"><i class="fa-solid fa-x"></i></a>
               </div>
               <div class="popFlex">

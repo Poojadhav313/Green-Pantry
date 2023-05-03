@@ -57,7 +57,7 @@
       <div class="colFooter">
         {% if item|is_in_cart:request.session.cart %}
         <div class="colFooterAdd" hidden>
-          <form action="/store" method="POST">
+          <form action="#{{item.id}}" method="POST">
             {% csrf_token %}
             <input hidden type="text" value="{{ item.id }}" name="productId">
             <input hidden type="text" value="True" name="removeProduct">
@@ -66,7 +66,7 @@
 
           <div class="cartQuantity textCenter">{{item|cart_quantity:request.session.cart}}&nbsp;in&nbsp;cart</div>
           
-          <form action="/store" method="POST">
+          <form action="#{{item.id}}" method="POST">
             {% csrf_token %}
             <input hidden type="text" value="{{ item.id }}" name="productId">
             <input type="submit" class="greenBtn posBtn" value=" + ">
