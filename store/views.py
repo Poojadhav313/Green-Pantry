@@ -309,3 +309,49 @@ def faq(request):
     quelist = Faq.getfaq()
     context = {'ques' : quelist}
     return render(request, 'store/faq.html', context)
+  
+
+def passreset(request):
+  if request.method == 'GET':
+    return render(request, 'store/passreset.html')
+  else:
+    email = request.POST.get('email')
+    pass1 = request.POST.get('password1')
+    pass2 = request.POST.get('password2')
+
+    customer = Customer.getCustomerByEmail(email)
+    error_msg = None
+
+    def specialChar(passs):
+      for c in passs:
+        if (c == '@' or c == '#' or c == '!' or c == '$'):
+            return True
+      return False
+
+    if customer:
+      if pass1 == pass2:
+        if len(pass1) < 6:
+          error_msg = 'Password too short!'
+        elif not specialChar(pass1):
+          error_msg = 'Password must contain at least 1 Special symbol!'
+        elif not any(p.isdigit() for p in pass1):
+          error_msg = 'Password must contain at least 1 numeric character!'
+        elif not any(p.isalpha() for p in pass1):
+          error_msg = 'Password must contain Alphabetic character!'
+
+      else:
+        error_msg = 'Enter same password!'
+    
+    else:
+      error_msg = 'Email Invalid!'
+
+
+    if error_msg:
+      content = {'error' : error_msg}
+      return render(request, 'store/passreset.html', content)
+    else:
+      customer.password = make_password(pass1)
+      customer.save()
+      content = {'successMsg' : "Password reset successfully!"}
+
+      return render(request, 'store/login.html', content)

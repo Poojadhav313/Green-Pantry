@@ -16,4 +16,7 @@ urlpatterns = [
     path('orders', views.orders, name='orders_page'),
     path('payment', views.payment, name='payment_page'),
     path('faq', views.faq, name='faq_page'),
+
+    
+    path('passreset', views.passreset, name='passreset_page'),
 ]

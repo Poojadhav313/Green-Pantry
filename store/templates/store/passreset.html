@@ -1,0 +1,40 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+
+
+<br> 
+<div class="centerForm">
+  <div>
+  <h1 class="textCenter">Reset Password</h1><br>
+
+  {% if error %}
+  <div class="formAlert">
+    {{error}}
+  </div>
+  {% endif %}
+
+  <div style="display: flex; flex-direction: row;">
+    <form action="" method="POST" class="boxElement formContainer">
+      {% csrf_token %}
+      <br><br>
+      <div>
+        <input type="email" class="formInput" placeholder="Email" name="email" required>
+      </div><br>
+      <div>
+        <input type="password" class="formInput" placeholder="Password" name="password1" required>
+      </div><br>
+      <div>
+        <input type="password" class="formInput" placeholder="Re enter Password" name="password2" required>
+      </div><br>
+              
+      <div>
+        <input type="submit" style="margin-top: 30px;"class="greenBtn" name="Log In">
+      </div><br>
+      
+    </form>
+        
+    <img src="https://img.freepik.com/premium-vector/register-access-login-password-internet-online-website-concept-flat-illustration_385073-108.jpg" height="500px">
+  </div></div>
+</div>
+{% endblock %}
